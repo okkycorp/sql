@@ -15,7 +15,19 @@ _Hint, search type 1 vs type 2 slowly changing dimensions._
 
 Bonus: Are there privacy implications to this, why or why not?
 ```
-Your answer...
+Type 1 Architecture has CustomerID as the primary key and any new changes will overwrite existing data and will only reflect the latest entry, including the address.
+
+Type 2 Architecture has unique AddressID as the primary key and retains every address entered. There can be multiple CustomerID per Address ID and therefore every address entries are retained. 
+
+When a new address is entered, a new AddressID is created while being linked to an existing CustomerID. Therefore, the new AddressID is separate from the old AddressID, and both linked to the same Customer ID. This way, all address entries are retained and nothing is overwritten
+
+Privacy Implications
+
+Type 1 Architecture assume there can only be 1 address per CustomerID and therefore for privacy purposes, it does not retain older or historical data.
+
+Type 2 Architecture creates new primary key AddressID every time a new address is entered and all linked to an existing CustomerID. This means all older entries are retained. There can be privacy issues where address changes are tracked and the customer's address history are retained (where they used to live and their location pattern).
+
+In case of data breach, Type 1 only leak the 1 data point, while Type 2 leak all data points linked to a Customer. Therefore, Type 2 is possibly more catastrophic in terms of data breach and might require more costly insurance.
 ```
 
 ## Question 4
@@ -23,7 +35,14 @@ Review the AdventureWorks Schema [here](https://i.stack.imgur.com/LMu4W.gif)
 
 Highlight at least two differences between it and your ERD. Would you change anything in yours?
 ```
-Your answer...
+Differences:
+    1. AdventureWorks has a more complex schema with many more tables and relationships, focusing on manufacturing, product, and inventory management.
+    2. AdventureWorks uses a more detailed Product table with additional attributes like ProductModel, ProductSubcategory, and more.
+    
+Changes in My ERD:
+    • Depending on the complexity needed for the bookstore, I might consider adding more detailed attributes to the Book table, such as PublicationYear, Publisher, and Edition for inventory management.
+    
+If the bookstore grows, introducing more entities related to inventory management and supplier relationships might be beneficial.
 ```
 
 # Criteria
